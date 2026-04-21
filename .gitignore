@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Editor swap/backup files
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime output files (generated per run — not committed)
+# These live at repo root; sample results in Sample_Result/ are committed
+raw_hsdes_data_*.json
+triage_classification_*.json
+triage_dashboard_*.html
+hsd_list.txt
+imh1_hsd_list.txt
+imh2_hsd_list.txt
+mcp_hsd_list.txt
+other_hsd_list.txt
+
+# Keep Sample_Result/ — it is committed intentionally
+!Sample_Result/
+!Sample_Result/**

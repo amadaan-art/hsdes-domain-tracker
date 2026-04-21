@@ -1,0 +1,224 @@
+13013944559	[DMR][HIOP][iMH2-HSLE] SVOS pollInterruptResource application returning Exit 1
+14023123340	[DMR][CXL][HSLE][IMH+VTC] Scenic route Issue CXL HDM
+14025078103	[DMR IMH2 HSLE] - D2D Interceptor connection seems to be wrong in IMH2 M3 Model (1st release)
+14025078133	[DMR IMH2 HSLE] - IMH2  M3 - CAPID3 MMIO read returning 0, skipping CBB MMCFG programming
+14025078147	[DMR IMH2 HSLE] - IMH2  M3 - This IPSD failure on checking IP signature - IpScfScmsIpInit: IP Signature is incorrect. Expected 0xC91B5304 Actual 0xFFFFFFFF
+14025228057	[DMR IMH2 HSLE] - IMH2  M3 -  Memory is working at 6400 MHz due to fuse loading issues, Timing parameters set thru bios knobs are 8000MHz
+14025230029	[DMR IMH2 HSLE] - IMH2  M3 - CAPID3 MMIO read returning 0, skipping CBB MMCFG programming
+14025255316	[DMR IMH2 HSLE] - IMH2  M3 - This IPSD failure on checking IP signature - IP Signatures are  incorrect for certain IPs. Bios asserts and stops further execution
+14025255344	[DMR IMH2 HSLE] - IMH2  M3 - Random DXE ASSERT observed - This seems to be incorrect SMI handling at hybrid environment
+14025292111	[DMR IMH2 HSLE] - IMH2  M3 - Memory test fails due to hybrid issues
+14025309864	[DMR IMH2 HSLE] - IMH2  M3 -  dmar0 and dmar2 - capability and extended capability registers are read 0s - This results in Kernel panic during SVOS boot
+14025435518	[DMR][CRASHLOG][MCP][IERR][IMH2] Cannot find rising edge of ERR2_N after a IERR trigger("PM CBB PCODE MCA 0x3 IO_TIMEOUT")
+14025620231	[DMR IMH2 HSLE] - IMH2  M4 Hang during SuperCollider test on addr =0x90100a4
+14025674811	[DMR IMH2 HSLE] - IMH2 M4 Boot is hanging during PmonDiscoveryTable
+14025742600	[DMR] [IMH2] [HSLE] [ACC] Rocket test DSA Memory Move reads different data than trackers show
+14025749552	[DMR IMH2 HSLE] - IMH2 M4 Boot is hanging during PmonDiscoveryTable
+14025791687	[DMR IMH2 HSLE] - IMH2 M4C - Memory tests with UMM feature is not working - Primary path seems to be working fine all the write and read operations are successful. But UMM seems to be unfunctional.
+14025934160	[DMR][RAS][DMR IMH2 HSLE] Read on PERFINTRCTL timesout while waiting for xfer done resulting in "RTL is probably in a bad state" error
+14025991858	[DMR IMH2 HSLE][M5A] BLAZE RESTORE Failing
+14026027507	[DMR IMH2 HSLE] - IMH2 M5A/M5C driver clock is operating at slower speed hence overall boot time on die model is not optimal
+14026028053	[DMR IMH2 HSLE] - Model M5A Die model: TPMI Feature ID and Intel Vsec telemetry related accesses are consuming more boot time
+14026073659	[DMR IMH2 MCP HSLE] M5A fmods - BIOS stays looping through the SMI handlers
+14026082951	[DMR IMH2 HSLE] - Model M5C Die model:  Boot stuck in DXE phase after "Pause SMM Periodic timer returns Success" due to SMI handling and certain bit not getting cleared.
+14026086452	[DMR IMH2 HSLE] - Model M5C Die model:  Fast clock synchronization error fastclk_err1 - observed in one of the run - This seems to be random
+14026109580	[DMR IMH2 HSLE] - Model M5C Die model:  NVME relocated to MIO stack from earlier legacy stack.
+14026109670	[DMR IMH2 HSLE] - Model M5C Die model: observe that the setup/config time is unusually high
+14026162266	[DMR][MCP][HSLE][IMH2] SIGABRT after cold reset due to mishandled access to address 0x0
+14026180620	[DMR][HIOP][iMH-HSLE] ACCE_BFM function HARecvStdRequest hitting assertion 0 error
+14026269466	[DMR][MCP][HSLE][IMH2] RTL access timeout observed during cold reset due to unexpected access to address 0x0
+14026439196	[DMR][IMH2][CXL][VTC] VTC is not responding the first credit return
+14026484329	[DMR IMH2 HSLE] - Model M5C Die model: only one DSA enabled, second DSA in primary IMH is disabled.
+14026553370	[DMR IMH2 HSLE] Page Fault when booting with serialDebugMsgLvl=0x3 bios knob
+14026585815	[DMR][HIOP][HIOP][MCP HSLE] Different Interrupt delivery methods are causing simics core double fault handlers
+14026619633	[DMR IMH2 HSLE] MemInit unintendedly skipped on M5C PPRs
+14026659184	[DMR][IMH2-HSLE] Data miscompares and multiple MCAs hit when running core and arden DRAM traffic with TPH
+14026776683	[DMR IMH2 HSLE] SVOS+Memtest with OEM SingleDIMM failing on write to 0xFF00 address
+14026814126	[Pre-sighting->Sighting][DMR IMH2 MCP HSLE] - CBB CLAs never complete crashlog flow
+14026814601	[DMR IMH2 MCP HSLE] - HSLE ICI M6A model stuck at exit phase of Warm Reset waiting for completion of D2D_MB_PRE_TRAINING_UPSTREAM_SYNC primecode state
+14026814653	[DMR IMH2 MCP HSLE] - HSLE ICI M6A model stuck at early exit phase of Global Reset
+14026862498	[DMR IMH1 B0 HSLE] - IMH1 B0 _pre1p0c_25ww50a Die model -  1st transaction with address 0xfed58038 hangs
+14026862665	[DMR IMH1 B0 HSLE] - IMH1 B0 _pre1p0c_25ww50a Die model -  RTL timeout for this NCU transaction - 0xf7e05810
+14026862802	[DMR IMH1 B0 HSLE] - IMH1 B0 _pre1p0c_25ww50a Die model - Any transactions to CBB1 or other CBB2 , CBB3 is causing the timeouts
+14026889467	[DMR][HIOP][iMH-HSLE] HAMVF logging hsf_miss_WbMtoIPush MCA when running supercollider VTC + cpu workloads to dram
+14026889474	[DMR][HIOP][MCP-HSLE] HAMVF logging hsf_miss_WbMtoIPush MCA when running supercollider VTC + cpu workloads to dram
+14026932713	[DMR][IMH2][HSLE][CXL Type3 IDE] CXL HDM memory write operations fail with I/O error when TSP Non-TEE is configured in **Skid Mode (256B)**
+14026951833	[DMR IMH2 HSLE] - Model M6A Die model: Supercollider test fails with 26ww5_3 image with ECC knob enabled for memory
+14026976248	[DMR IMH2 HSLE] SVOS kernel in endless loop with error "DMAR: VT-d detected Invalidation Queue Error: Reason 3" after IMH8-MIO2/3/4 and IMH9-MIO1/2/3/4 disable scenario
+14026994927	[DMR IMH2 HSLE] - Model 1P0A Die model: Random failure observed during Bios/SVOS execution accessing certain address on IMH1 (which is in simics)
+14027022787	[DMR IMH2 MCP HSLE] Boot stuck waiting for FEATURE_IP_BRING_UP after attempting IMH8-MIO2/3/4 and IMH9-MIO1/2/3/4 Fuse IP disable
+14027115816	[DMR IMH1 B0 MCP HSLE] - For ECC Enabled run results in MCA error - 0xEE00000200A00090
+14027165785	[DMR][Reset][AP1 B0][MCP] IERR MCA 0xBE000000001E0410 flagged while unexpected second cold reset during warm boot
+14027256031	[Pre-sighting][DMR][Reset][AP1B0][MCP][SVOS] SVOS not fully booted during reset exit phase
+14027256966	[DMR][Reset][AP2][MCP][SVOS] AWR hangs in reset exit Phase4 waiting for HWRS_STATUS.FEATURE_IP_RESET_COMPLETE
+14027337683	[DMR IMH2 HSLE] - Model M6A Die model: Kernel crash observed with 32D77 Bios and 32D91.
+15018271632	[DMR IMH2 HSLE] SCF PMON counter is not reset when clock gated enabled
+15018276928	[DMR IMH2 HSLE] MC Pmon MC_PMON_CLK_CNT does not reset to 0x0 after pmonunitctrl.resetcounters assert
+15018346145	[DMR IMH2 HSLE] ECC is disabled with biosknob DdrEccEnable=0x1 & fuse hwrs_top_late/SKU_FEATURE_DWORD1_MC_DIS_128B_ECC = 0x1
+15018348717	[DMR][XOS] No transaction after restore done with supercollider test on MCP V14 model
+15018554595	[DMR][MIO[IMH2] FRCD register captured intended fault reason, but fault pseudo counter did not counting
+15018556127	[DMR][MIO[IMH2][VTD_Spec] Reserved FSPM value not resulting in fault SPT.4.3 (0x5B) for a Translated Request
+15018567219	[DMR][MIO[IMH2] Fault reason is not reported for condition PGTT=001b and ECAP_REG.FSTS = 0x0 (SPT4.2 - 0x5B)
+15018572098	[DMR][MIO][HSLE][VTD] Fault code 25h was encountered after executing S.X tests.
+15018572962	[DMR][MIO[IMH2][Content] False pass when running SPT.4.3 (0x5B) for a Translated Request
+15018611416	[DMR][MIO[IMH2] SPT.4.2 - Translated Req traffic with PASID resulting different fault reason (EPTR=1, FRCD=0x42, EPTR=0, FRCD=0x49)
+15018611494	[DMR][IMH2][4CBB][25WW39.5] Timeout happened at address 0x100400407000 when updating PRIMECODE 25ww44_2025ww41-4573
+15018625084	[DMR][MIO[IMH2][VTD_Spec] Fault reason is not captured (expected 0x5B) when running SPT.4.2 with translated request without PASID
+15018626696	[DMR][MIO][IMH2][VTD] Fault Triggered by Setting LPIG (Bit 66) in Page Group Response Descriptor
+15018629684	[DMR][MEM+COH] Cannot find S3M FIT / FIT 5 entry
+15018665609	[DMR][XOS] Hit MCA fired reg_CR_MCI_STATUS[63:0]=0xEA00000000110412 after run supercollider with VTC
+15018679776	[DMR][COH][IMH2][XOS][Supercollider] Supercollider test hang/stop in the middle when run in XOS
+15018713588	[DMR][COH][XOS][Flat2LM] Unable to mem write to address when run with flat2lm
+15018723898	[DMR][XOS] Hit MCA fired reg_CR_MCI_STATUS[63:0]=0xEA00000000110412 after run supercollider with VTC
+15018751947	[DMR][COH][XOS][Memical] Memical test log hang/stop in the middle when run in XOS
+15018761007	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request without PASID.
+15018775519	[DMR][COH][XOS][Flat2LM] Mismatch data error when running supercollider on flat2lm
+15018778757	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request WITH PASID.
+15018778879	[DMR][VTD][SPT][IMH][HSLE] SPT.1 fault was not triggered for a translation request with/without PASID
+15018780328	[DMR][VTD][SPT][IMH][HSLE] The SPT.1 with PRS enabled test did activate the fault counter at 0x58 when executed but the test is failed
+15018782927	[DMR][COH][XOS][Memical] Missing write to 0x500000180 address in idi.log
+15018783584	[DMR][VTD][SPT][MIO][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type
+15018786775	[DMR][OOBMSM][MCP SLE] [IMH2 ICI] LTM_MSR_CONTROL register were not populated correctly
+15018787672	[DMR][COH][XOS][PMON] Pmon counter did not increase when event already happen
+15018789268	!!!! RC_FATAL_ERROR Detected, run will exit in 10M cycles
+15018794268	[DMR][MIO[IMH2][Content] False pass when running SPT.4.3 (0x5B) for a Translated Request
+15018794381	[DMR][VTD][SPT][VTD_Spec] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type for SPT.1, SPT.2 and SPT.3
+15018796397	[DMR][VTD][SPD][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type Without Pasid
+15018804775	[DMR][IMH2][4CBB]25WW47_2] SPD.1 untranslated traffic with PASID resulting fault reason 0x45 (expected 0x50)
+15018816661	[DMR][IMH2][BugHunting] SPD.1 - Translated Req traffic with PASID resulting fault reason FRCD=0x49
+15018816844	[DMR][MIO[IMH2][BugHunting]SPD.2 and SPD.3 - Translated Req traffic with PASID resulting fault reason FRCD=0x42
+15018821728	[DMR][IMH2][4CBB]25WW47_2] SPD.1 translation request traffic with PASID resulting fault reason 0x45 (expected 0x50)
+15018821912	[DMR][IMH2][MIO] SPD.2 translation request with/without PASID failed - fault reason is not reflected and pseudo counter not increase
+15018828191	[DMR Memory] RTL BAD state at this address = 0x1ffff6800118
+15018848894	[DMR][COH][XOS][Supercollider] Supercollider test on XOS did not finish due to core being idle
+15018869020	[DMR][VTD][SPD][IMH][HSLE] FPD (Fault Processing Disable) Bit Fails to Mask Fault Counter; Faults Continue to Increment When Enabled with PRS
+15018869672	[DMR][VTD][SPD][MIO][HSLE] No Fault Increase Observed During SPD.3 Execution with Translation Request Traffic (With/Without PASID)
+15018870106	[DMR][OOBMSM][MCP SLE] [IMH2 IC] Core getframe request were getting 0x90 and 0x95 for module 0 and module 31
+15018930516	UBOX_NCRACU_SB_GROUP_NCRACU_SB_GROUP > MMC_0_MMC_IOSF_SB_AGENT_MMC_IOSF_SB_AGENT MWR at address a000
+15018941650	[DMR][VTD][PythonSV][MIO][HSLE] Fail to enable PythonSV on MIO Model
+15018947178	[DMR][IMH2][MIO HSLE][TDX]: UD FAULT during MCHECK launch with both MSR72 and MSR79 flows
+15019008910	[DMR][IMH2][MIO HSLE][TDX]: CPU Hang during MCHECK stage after CPUID Override Fix
+15019036684	[DMR][OOBMSM][MCP SLE] [IMH2 IC] Crashdump core getframe getting same pattern for every core1
+15019058414	[DMR][MIO][OHC-C] Observed OHC-C being sent along with OHC-A
+15019072700	[DMR Memory] MMC0-MMC3 received GET_PATCH request from S3M IMH9 after S3M IMH8
+16027753168	[DMR] [HSLE] IMH dmrhub_ive-a0-dmrhub-25ww23b TI Cadence Model - Memory reads are returning 0s
+16027820094	[DMR][HSLE][IMH2] Blaze save checkpoint not created on IMH2
+16028146682	[DMR][IMH2][MIO][VTD][HSLE] [SPT3] Setting Reserved Region [511:448] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028146847	[DMR][IMH2][MIO][VTD][HSLE] Setting Reserved Region [447:384] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028146880	[DMR][IMH2][MIO][VTD][HSLE] Setting Reserved Region [383:336] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028149325	[DMR][MCP][HSLE][VTD] [iMH2] 27-bit APIC is accepted for a valid interrupt broadcast
+16028152148	[DMR][HIOP][IMH2] Document needs to be updated to account for "Completor Abort" for the fault response propagates from IOMMU to HIOP
+16028315420	[DMR][MIO][IMH2][VTd] SPT.4.1 Translated Request without PASID test failed - fault is not observed
+16028629127	[DMR][IMH2][MIO][VTD][HSLE] pcietc_up_vtd Command Fails to Generate Transaction with "Execute Failed" and "Execute Transaction Failed" Errors During S.X Condition Testing
+16028661077	[VTd][IMH2] Perfmon events associated with S-ATS accessible when ECAP.HPTS=0
+16028677254	[DMR][MIO][IMH2] Observed some register fields difference when comparing ECAP_REG and ECAP_CFG
+16028785439	[DMR][MIO][HSLE][VTD][IMH2] Errlog UFI Triggered during BIOS Boot
+16028900288	[DMR][MIO][VTD][IMH2] CORRECTABLE PARITY CACHE errors reported before the threshold is reached
+16028900344	[DMR][IMH2][MIO][VTD][HSLE] Misaligned and Mapped VTd BAR MMIO Read Accesses Incorrectly Return Value Instead of Zero
+16028994866	[DMR][IMH2][VTD][SVOS] Translation requests are sent with wrong length
+16029013621	[IMH2][RAS] Cache Parity Errors not incrementing for the first transaction after injecting errors, for all others it works fine.
+16029049932	[DMR][OOBMSM][MCP SLE] [IMH2 ICI] Rdendpointcfg response getting 0x97 for bdfbar64 request
+16029053217	[DMR][MIO[IMH2][VTD_Spec] Reserved FSPM value not resulting in fault SPT.4.3 (0x5B) for a Translated Request
+16029086074	[DMR][MIO[IMH2] FRCD register captured intended fault reason, but fault pseudo counter did not counting
+16029088082	[DMR][MIO][VTD][IMH2] IOSFSB packet information is not consistent in different documents
+16029088090	[DMR][MIO][VTD][IMH2] IOSFSB packet information is not consistent in different documents
+16029088150	[DMR][MIO[IMH2][VTD_Spec] Fault reason is not captured (expected 0x5B) when running SPT.4.2 with translated request without PASID
+16029101074	[DMR][IMH2][4CBB][25WW39.5] Timeout happened at address 0x100400407000 when updating PRIMECODE 25ww44_2025ww41-4573
+16029138604	[IMH2][RAS] Cache Parity Errors not incrementing for the first transaction after injecting errors, for all others it works fine.
+16029139236	[DMR][MIO][IMH2][VTD] Fault Triggered by Setting LPIG (Bit 66) in Page Group Response Descriptor
+16029447296	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request without PASID.
+16029451144	[DMR][GROUPED_MASTER]Doc tickets - To be fixed in Q1'26
+16029539478	[DMR][IMH2][MIO] SPD.2 translation request with/without PASID failed - fault reason is not reflected and pseudo counter not increase
+16029546811	[DMR][VTD][SPD][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type Without Pasid
+16029552413	[Pre-sighting->Sighting][Reset][DMR IMH2 MCP HSLE] - ACM failure during boot and reset
+16029581592	[DMR][IMH2][VP][Near TDP] Setting voltage offset using Near TDP mailbox command is not affecting Voltage value
+16029638972	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request WITH PASID.
+16029638990	[DMR][IMH2][4CBB]25WW47_2] SPD.1 untranslated traffic with PASID resulting fault reason 0x45 (expected 0x50)
+16029642521	[DMR][VTD][SPD][MIO][HSLE] No Fault Increase Observed During SPD.3 Execution with Translation Request Traffic (With/Without PASID)
+16029668163	[DMR][VTD][PythonSV][MIO][HSLE] Fail to enable PythonSV on MIO Model
+16029737341	[DMR][VTD][SPD][IMH][HSLE] FPD (Fault Processing Disable) Bit Fails to Mask Fault Counter; Faults Continue to Increment When Enabled with PRS
+16029856896	[DMR][MIO][OHC-C] Observed OHC-C being sent along with OHC-A
+18043925477	[IDI_XTOR_GEN2][IMH2] emu.devices.idi_core_bfm_0 reports timeout on mmio access to VTC
+18043925505	[IDI_XTOR_GEN2][IMH2] emu.devices.idi_core_bfm_0 reports timeout on mmio access to VTC
+22021227277	[DMR][HIOP][UBOX][iMH-HSLE] Data Miscompare when running core + vtc workloads in IMH HSLE
+22021400245	[DMR][UBOX][iMH-HSLE] Simics VP is injecting improper transaction packets to ufi_hybrid_adapter
+22021408694	[DMR][HIOP][IMH2][MIO] HIOP not returning credits evenly between VCs during multi VTC write only workload
+22021428028	[DMR][HIOP][IMH2] HIOP Slow Progress on VC4 as Compared to VC0 during multi VTC write only workload
+22021450082	[DMR][HIOP][IMH2] Supercollider workloads not causing enough stress in HIOP - OUTB Direction
+22021471233	[DMR][UBOX][iMH-HSLE] Specific VCR addresses are not sending the entire payload to the ufi_hybrid_adapter
+22021486133	[DMR] [IMH2] [PPR] MCA_THERMAL_SENSOR_INVALID observed in WW30 PPR
+22021582233	[DMR][UBOX][iMH2-HSLE] iosf-sb MRD to pcie IDE CEE IP returning with Completion without Data + powered down response
+22021608324	[DMR][UBOX][iMH2-HSLE] ATTESTATION_MBOX VCR not implemented in UBOX VCR PLA
+22021625098	[DMR][iMH2-HSLE] Simics dram address decode error when running supercollider core workloads to dram
+22021644102	[DMR][UBOX][iMH2-HSLE] OCODE is not programming the correct UBOX MMIO address into scratchpad_cr_status + scratchpad_cr_command0
+22021653016	[RLM][DMR][AP_UCC1c][hiop][IMH2][M5a] IMH2 HSLE - Registers mismatches found
+22021663929	[DMR][UBOX][iMH2-HSLE] NcRdPtl to MMIO VMMR register on VTC hung during Supercollider traffic
+22021684066	[DMR][iMH2-HSLE] Simics dram address decode error when running supercollider core workloads to dram
+22021701817	[DMR][Reset][AP2][MCP] First Cold Boot Fails to get through Cold Reset triggered by BIOS
+22021716569	[DMR][UBOX][iMH-HSLE][IMH2] Specific VCR addresses are not sending the entire payload to the ufi_hybrid_adapter
+22021718000	[DMR][Reset][AP2][MCP] SVOS boot with RTC hangs reading RTC seconds field after hybrid mapping
+22021720557	[DMR][Reset][AP2][MCP][PCIE}[RIO] Supercollider test fails after boot in RIO configuration with PCIE VTC
+22021720707	[DMR][Reset][AP2][MCP][S5] S5 fails to complete shutdown flow
+22021731604	[DMR][Reset][AP2][MCP][S5] S5 Entry flow hangs with errors
+22021740452	[DMR][Reset][AP2][MCP][RIO][WR][CR] Warm Reset and Cold Reset tests end abruptly after Supercollider Passes
+22021745691	[DMR][Reset][IMH2][HSLE][XOS][SimicsVP] SVOS reboot & shutdown commands hangs and does not initiate reset after XOS jumpstart
+22021745785	[DMR][Reset][AP2][MCP][RIO][CR] Hang in Reset Entry due to MMC RESETPREP timing
+22021747443	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][S5] OS is sending 2 writes to PM1_CNT with SLP_EN bit set and S3M is responding to the first one
+22021778985	[DMR][Reset][AP2][MCP][S5] OS is sending 2 writes to PM1_CNT with SLP_EN bit set and S3M is responding to the first one
+22021779006	[DMR][Reset][AP2][MCP][CR][SVOS] SVOS not performing Cold Reset when using reboot or shutdown commands
+22021805036	[DMR][Reset][AP2][MCP][AWR] AWR hangs in exit flow Phase3 and cores not coming out of reset
+22021805094	[DMR][Reset][AP2][MCP][AGR] AGR hangs in early in exit flow waiting for SLP_Sx to de-assert
+22021810821	[DMR] [IMH2] Support for Simics CorePMA + Aunit Fmod + Punit Bmod for CC6 enabling
+22021810930	[DMR] [IMH2] Support for Simics CorePMA + Aunit Fmod + Punit Bmod for CC6 enabling
+22021817277	[DMR][HIOP][HIOP][MCP HSLE] Multistack hitting PCIETC_TIMEOUT on the Arden threads - due to VTC VM stopping execution of Vectors suddenly
+22021818167	[DMR] [IMH2] [PM] Core Ratios mismatch when read from SVOS vs simics host
+22021820442	[DMR][Reset][AP2][MCP][SVOS] OS reporting different memory size/structure after reset
+22021820468	[DMR][Reset][AP2][MCP][SVOS] BIOS reporting loss of CMOS data, so booting with defaults on 2nd cold boot test
+22021828154	[DMR][HIOP][HIOP][MCP HSLE] CAS Atomic Tag being reused before it gets a completion by VTC
+22021884810	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][M5C][M6A][SVOS] Cold & Warm Reset is hitting the RESETPREP_TIMEOUT in CBB due to lack of UDI response
+22021884835	[DMR][Reset][AP2][MCP][M5C][SVOS] 0x8840004502030e0f MCA at start of warm reset exit Phase4
+22021911959	[DMR][IMH2][CXL][VTC] VTC is not responding the first credit return
+22021912430	[DMR][Reset][AP2][MCP][M5C][M6A][SVOS] Cold & Warm Reset is hitting the RESETPREP_TIMEOUT in CBB due to lack of UDI response
+22021931237	[DMR][HIOP][UBOX][MCP-HSLE] Data Miscompare when running MRd8w and DRd8 thread types + core read checking traffic
+22021938504	[DMR][HIOP][HIOP][MCP HSLE] x4x4x8 Bifurcation Enabling on MCP Multistack M5A model
+22021960238	[DMR][HIOP][HIOP][MCP HSLE] Multistack hitting PCIETC_TIMEOUT on the Arden threads
+22021960983	[DMR][HIOP][HIOP][MCP HSLE] Multistack hitting PCIETC_TIMEOUT on the Arden threads - due to VTC VM stopping execution of Vectors suddenly
+22021968844	[DMR] [CorePMA] aunit stuck in a loop for 17B cycles after C6 PEGA injection
+22021977565	[DMR][HIOP][HIOP][MCP HSLE] PCIe RP Logging a Fatal Error for EP=1 from Device
+22021977682	[DMR][HIOP][iMH-HSLE] Undefined behavior when DLM for IRTE is an undefined value
+22021977750	[DMR][Reset][AP2][MCP][SVOS] BMC Reporting Unsupported request from S3M
+22021977764	[DMR][Reset][AP2][MCP][SVOS] MSR 0x151 access in unpowered processor returns fault
+22021977766	[DMR][Reset][AP2][MCP][SVOS] UR detected for IO address 0x00000000000003EF
+22021977982	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][SVOS] Reading from unknown MSR. Signaling GP fault.
+22021978211	[DMR][HIOP][iMH-HSLE] Undefined behavior when DLM for IRTE is an undefined value
+22021980306	[DMR][HIOP][HIOP][MCP HSLE] CPU Ramless Targeting in HSLE causes massive efficiency dip in emulator cycles
+22021981484	[DMR][HIOP][iMH-HSLE] CAS threads hitting error code 6 PCIETC_ERR_NOT_FOUND
+22021981502	[DMR][HIOP][iMH-HSLE] CAS threads hitting error code 6 PCIETC_ERR_NOT_FOUND
+22021985601	[Pre-sighting->Sighting][DMR][Reset][AP1B0][AP2][MCP][SVOS] IMH9 RASIP MCA after Cold Reset 0xee000000001a0412
+22021985622	[DMR][Reset][AP2][MCP][SVOS] D2D MCA during cold reset after XXRESET assertion 0x8840004202030e0f
+22021985903	[DMR][Reset][AP2][MCP][SVOS] SVOS starts with grub_presi in cold boot, but changes to grub_default after cold reset
+22022010107	[DMR][Reset][CXL][MCP][fADR] CXL not creating persistent memory
+22022021281	[DMR][Reset][AP2][MCP][SVOS] Not getting CF9 GO response for CF9 triggered Global Reset
+22022022571	[Pre-sighting->Sighting Linked][DMR][Reset][AP2][MCP][SVOS] IERR in Warm Reset Entry after BIOS knob change to re-enable previously disabled IPs 0xBE000000001E0410 CPD Timeout
+22022032868	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][SVOS] AWR hangs in reset exit Phase4 waiting for HWRS_STATUS.FEATURE_IP_RESET_COMPLETE
+22022036317	[Reset][DMR IMH2 MCP HSLE] - ACM failure during boot and reset
+22022036658	[DMR][Reset][AP2][MCP][SVOS] AWR hangs in reset exit Phase4 with CBB Punit reporting CPD Timeout
+22022037836	[DMR][Reset][AP2][MCP][SVOS] Reading from unknown MSR. Signaling GP fault.
+22022038470	[DMR][SBAS][HSLE][1p0][DOC]: Missing QWORD Alignment Requirement for FWS SRAM Bulk Access Operations
+22022048191	[DMR] [IMH2] [CorePMA] Facing Acode MCA with M6 model
+22022052426	[DMR][SBAS][HSLE][1p0]: Missing QWORD Alignment Requirement for FWS SRAM Bulk Access Operations
+22022052442	[DMR][HIOP][MCP HSLE] Emulation cycles stop advancing after pciextor/VTC receives poisoned write from p2p packet
+22022052450	[DMR][HIOP][MCP HSLE] Emulation cycles stop advancing after pciextor/VTC receives poisoned write from p2p packet
+22022059662	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][SVOS] Punit Machine Check Error and IERR not propagating during Reset Flow
+22022059772	[DMR][Reset][AP2][MCP][SVOS] Punit Machine Check Error and IERR not propagating during Reset Flow
+22022085962	[DMR] [IMH2] [PM] Unable to post-process Primecode trackers -> UnboundLocalError: local variable 'unknown_fp' referenced before assignment
+22022085963	[DMR] [IMH2] [PM] Unable to post-process Primecode trackers -> UnboundLocalError: local variable 'unknown_fp' referenced before assignment
+22022100537	[DMR][Reset][AP1B0][AP2][MCP][SVOS] IMH9 RASIP MCA after Cold Reset 0xee000000001a0412
+22022105765	[Pre-sighting->Sighting][DMR][Reset][AP2][MCP][SVOS] IMH Punit MCE and IERR during AGR exit 0xba00000000200402
+22022107380	[DMR] [IMH2] [PM] [PKGC] MCA_PKGC_GPSB_TIMEOUT during PKGC flow
+22022111984	[DMR][Reset][AP2][MCP][SVOS] IMH Punit MCE and IERR during AGR exit 0xba00000000200402
+22022152066	[Presighing->Sighting][DMR][Reset][Warm][IP Disable][VTC][MCP] Punit MCA after triggering reset from OS 0xa800000083000402 - RESETPREP timeout on enabled stacks
+22022152947	[DMR] [IMH2] [PM] [PKGC] MCA_PKGC_GPSB_TIMEOUT during PKGC flow
+22022181138	[Pre-sighting][DMR][Reset][AP1B0][MCP]Second unexpected cold reset observed during warm (second) boot
+22022184300	[DMR][Reset][Warm][IP Disable][VTC][MCP] Punit MCA after triggering reset from OS 0xa800000083000402 - RESETPREP timeout on enabled stacks
+22022320972	[DMR][Reset][AP2][MCP][SVOS] IMH9 hangs waiting for FEATURE_IP_RESET_COMPLETE in Warm Reset exit after Soft-Straps Cold Reset

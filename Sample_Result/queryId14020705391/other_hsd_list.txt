@@ -1,0 +1,40 @@
+15018572098	[DMR][MIO][HSLE][VTD] Fault code 25h was encountered after executing S.X tests.
+15018626696	[DMR][MIO][IMH2][VTD] Fault Triggered by Setting LPIG (Bit 66) in Page Group Response Descriptor
+15018629684	[DMR][MEM+COH] Cannot find S3M FIT / FIT 5 entry
+15018761007	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request without PASID.
+15018778757	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request WITH PASID.
+15018778879	[DMR][VTD][SPT][IMH][HSLE] SPT.1 fault was not triggered for a translation request with/without PASID
+15018780328	[DMR][VTD][SPT][IMH][HSLE] The SPT.1 with PRS enabled test did activate the fault counter at 0x58 when executed but the test is failed
+15018783584	[DMR][VTD][SPT][MIO][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type
+15018789268	!!!! RC_FATAL_ERROR Detected, run will exit in 10M cycles
+15018794381	[DMR][VTD][SPT][VTD_Spec] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type for SPT.1, SPT.2 and SPT.3
+15018796397	[DMR][VTD][SPD][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type Without Pasid
+15018828191	[DMR Memory] RTL BAD state at this address = 0x1ffff6800118
+15018869020	[DMR][VTD][SPD][IMH][HSLE] FPD (Fault Processing Disable) Bit Fails to Mask Fault Counter; Faults Continue to Increment When Enabled with PRS
+15018869672	[DMR][VTD][SPD][MIO][HSLE] No Fault Increase Observed During SPD.3 Execution with Translation Request Traffic (With/Without PASID)
+15018930516	UBOX_NCRACU_SB_GROUP_NCRACU_SB_GROUP > MMC_0_MMC_IOSF_SB_AGENT_MMC_IOSF_SB_AGENT MWR at address a000
+15018941650	[DMR][VTD][PythonSV][MIO][HSLE] Fail to enable PythonSV on MIO Model
+15019072700	[DMR Memory] MMC0-MMC3 received GET_PATCH request from S3M IMH9 after S3M IMH8
+16028146682	[DMR][IMH2][MIO][VTD][HSLE] [SPT3] Setting Reserved Region [511:448] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028146847	[DMR][IMH2][MIO][VTD][HSLE] Setting Reserved Region [447:384] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028146880	[DMR][IMH2][MIO][VTD][HSLE] Setting Reserved Region [383:336] in PASID Table Entry Did Not Trigger Any Fault - Expected 0x5A
+16028149325	[DMR][MCP][HSLE][VTD] [iMH2] 27-bit APIC is accepted for a valid interrupt broadcast
+16028315420	[DMR][MIO][IMH2][VTd] SPT.4.1 Translated Request without PASID test failed - fault is not observed
+16028629127	[DMR][IMH2][MIO][VTD][HSLE] pcietc_up_vtd Command Fails to Generate Transaction with "Execute Failed" and "Execute Transaction Failed" Errors During S.X Condition Testing
+16028661077	[VTd][IMH2] Perfmon events associated with S-ATS accessible when ECAP.HPTS=0
+16028785439	[DMR][MIO][HSLE][VTD][IMH2] Errlog UFI Triggered during BIOS Boot
+16028900288	[DMR][MIO][VTD][IMH2] CORRECTABLE PARITY CACHE errors reported before the threshold is reached
+16028900344	[DMR][IMH2][MIO][VTD][HSLE] Misaligned and Mapped VTd BAR MMIO Read Accesses Incorrectly Return Value Instead of Zero
+16028994866	[DMR][IMH2][VTD][SVOS] Translation requests are sent with wrong length
+16029088082	[DMR][MIO][VTD][IMH2] IOSFSB packet information is not consistent in different documents
+16029088090	[DMR][MIO][VTD][IMH2] IOSFSB packet information is not consistent in different documents
+16029139236	[DMR][MIO][IMH2][VTD] Fault Triggered by Setting LPIG (Bit 66) in Page Group Response Descriptor
+16029447296	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request without PASID.
+16029451144	[DMR][GROUPED_MASTER]Doc tickets - To be fixed in Q1'26
+16029546811	[DMR][VTD][SPD][HSLE] Fault Counter Not Incrementing During Transactions with Translated Request Traffic Type Without Pasid
+16029638972	[DMR][VTD][SPT][MIO][HSLE] The SPT.2 test did not activate the fault counter at 0x59 when executed with a translation request WITH PASID.
+16029642521	[DMR][VTD][SPD][MIO][HSLE] No Fault Increase Observed During SPD.3 Execution with Translation Request Traffic (With/Without PASID)
+16029668163	[DMR][VTD][PythonSV][MIO][HSLE] Fail to enable PythonSV on MIO Model
+16029737341	[DMR][VTD][SPD][IMH][HSLE] FPD (Fault Processing Disable) Bit Fails to Mask Fault Counter; Faults Continue to Increment When Enabled with PRS
+22022038470	[DMR][SBAS][HSLE][1p0][DOC]: Missing QWORD Alignment Requirement for FWS SRAM Bulk Access Operations
+22022052426	[DMR][SBAS][HSLE][1p0]: Missing QWORD Alignment Requirement for FWS SRAM Bulk Access Operations
