@@ -1,0 +1,291 @@
+{
+  "ticket_analysis": [
+    {
+      "hsd_id": "14027339278",
+      "list_title": "[COR IOH EMU] [ww 03a & 09a & 11a]:  VNN ips  s3m, hwrs and dfxagg portids are tied to zero - breaking early cold reset bring-up",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "The description identifies that HWRS, S3M, and DFX Aggregator port IDs are all tied to zero, indicating a strap/tieoff configuration failure across multiple VNN IPs. A comment confirms the fix was a 'Strap Tieoff Automation fix' committed to TOT via changes to die_ioh/fabric/config/manual_connectivity.py and tmp_wa.py, confirming the root cause as a misconfigured strap tieoff in the fabric connectivity automation rather than a reset sequencing logic error.",
+      "important_signals": [
+        "portids tied to zero",
+        "HWRS Port ids LEFT: IOH RIGHT: IMH2",
+        "s3m port ids",
+        "dfxagg portids",
+        "Strap Tieoff Automation fix",
+        "die_ioh/fabric/config/manual_connectivity.py",
+        "die_ioh/fabric/config/tmp_wa.py",
+        "blocking the fuse front door for DFX Aggregator"
+      ]
+    },
+    {
+      "hsd_id": "14027482819",
+      "list_title": "[COR IOH EMU] [ww 03a & 09a & 11a]:  s3m sideband pkt to fuse controller is getting dropped between fsa_s3m & 2585 router",
+      "probable_domain": "OOB/OOBMSM/S3M",
+      "secondary_domains": ["IP Fuse/Configuration"],
+      "confidence_level": "medium",
+      "justification": "The description states that an S3M sideband request did not reach the fuse controller on the path 'S3m -> fsa -> 2585 [broken]', indicating a sideband routing failure in the fabric. A comment directs re-running on a new model release (dmrhub2-a0-corioh-26ww13a) which 'contains port_id tieoff fixes', suggesting the drop is a consequence of the same strap/port ID misconfiguration found in ticket 14027339278, but the observable failure is an S3M sideband packet being silently dropped in the 2585 router.",
+      "important_signals": [
+        "s2m request had not reached to fuse controller",
+        "S3m -> fsa -> 2585 [broken]",
+        "port_id tieoff fixes",
+        "dmrhub2-a0-corioh-26ww13a"
+      ]
+    },
+    {
+      "hsd_id": "14027492988",
+      "list_title": "[COR IOH EMU] [ww 11a]:  sideband completion without data between gpios5 & fuse controller",
+      "probable_domain": "OOB/OOBMSM/S3M",
+      "secondary_domains": [],
+      "confidence_level": "low",
+      "justification": "The description states only 'gpio s5 side band message is completing without data', indicating a sideband transaction to the fuse controller returns a completion with no payload. No comments or forum notes are present to further characterize the root cause or identify a signal cluster.",
+      "important_signals": [
+        "gpio s5 side band message completing without data",
+        "fuse controller"
+      ]
+    },
+    {
+      "hsd_id": "14027520901",
+      "list_title": "[COR IOH EMU] [ww 13a]:  s3m router reset is connected to  soc_early_infra  rather than s5 infra",
+      "probable_domain": "Reset/Power Sequencing",
+      "secondary_domains": ["IP Fuse/Configuration"],
+      "confidence_level": "high",
+      "justification": "The description identifies that the S3M router is connected to the wrong reset domain — 'soc_early_infra' (S0) instead of 's5 infra' (S5) — causing S3M sideband transactions to not egress from the FSA. A comment pinpoints the root cause: a configuration spec line was commented out ('soc.search(\"u_ns_socb_pcg_parsocsouth0chassis1_pcg1\").attrs[\"rst\"] = \"s5_crux\"'), causing automation to default to S0 crux; the fix was applied to die_ioh/fabric/config/config_utils.py.",
+      "important_signals": [
+        "router is connected to incorrect reset pin",
+        "soc_early_infra",
+        "s5_crux",
+        "soc.search().attrs['rst'] = 's5_crux' commented out",
+        "automation picks default reset of S0 crux",
+        "die_ioh/fabric/config/config_utils.py"
+      ]
+    },
+    {
+      "hsd_id": "14027643689",
+      "list_title": "[COR IOH EMU] [ww 13a]:  punit array/crashlog , d2d, msm aggr , cms  etc several ips blocking hwrs with BISR fuse errors",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "Comments list multiple IP BISR FSM signal paths stuck in error state during HWRS reset phases, including mBISR_rstw_phase4_not_disabled_msm_aggr_chassis, mBISR_rstw_punit_crashlog, mBISR_rstw_mb_d2d_5, and mBISR_rstw_cmsc10r2. A comment explicitly states 'DFT had clearly called out ww13a RTL does not have the BISR implementation complete' and the HSD was rejected because 'BISR is enabled in latest RTL tot' with force files provided for emulation to proceed.",
+      "important_signals": [
+        "mBISR_rstw_phase4_not_disabled_msm_aggr_chassis",
+        "mBISR_rstw_punit_crashlog",
+        "mBISR_rstw_mb_d2d_5",
+        "mBISR_rstw_cmsc10r2",
+        "fsm_instance.State[4:0]",
+        "BISR implementation was not done in ww13a rtl",
+        "BISR is enabled in latest RTL tot",
+        "force_file_emulation_ww03a"
+      ]
+    },
+    {
+      "hsd_id": "14027663847",
+      "list_title": "[COR IOH EMU] [ww 13a]:  parsocvhsftop_right.mBISR_rstw_cmsc10r1,  parsocinfra0northcap3.fBISR_rstw_phase4_parsocinfra0northcap3_lcp_ctrl,   parpsf2.mBISR_rstw_phase4_pcie4_disable_chassis,  parsocvhsfbot_left.mBISR_rstw_ubr1   ips blocking hwrs with BISR fuse errors",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "The description lists four additional BISR FSM signal paths stuck during HWRS phases: mBISR_rstw_cmsc10r1, fBISR_rstw_phase4_parsocinfra0northcap3_lcp_ctrl (LCP fuse connectivity), mBISR_rstw_phase4_pcie4_disable_chassis, and mBISR_rstw_ubr1. A comment confirms 'DFT had clearly called out ww13a RTL does not have the BISR implementation and LCP fuse connectivity complete'; HSD rejected with BISR/LCP connections available in latest RTL.",
+      "important_signals": [
+        "mBISR_rstw_cmsc10r1",
+        "fBISR_rstw_phase4_parsocinfra0northcap3_lcp_ctrl",
+        "mBISR_rstw_phase4_pcie4_disable_chassis",
+        "mBISR_rstw_ubr1",
+        "fsm_instance.State[4:0]",
+        "BISR implementation and LCP fuse connectivity complete",
+        "BISR/LCP connections are enabled in latest RTL tot"
+      ]
+    },
+    {
+      "hsd_id": "14027663856",
+      "list_title": "[COR IOH EMU] [ww 13a]:  pargpios0.mBISR_rstw_phase3_i3c_mng_disable_chassis,   parsocvhsfbot_right.mBISR_rstw_ubr18,   parsocvhsfbot_right.mBISR_rstw_scrsp2p_c8,  parpunit.mBISR_rstw_phase3_not_disabled_punit_chassis,  parfws.mBISR_rstw_phase3_not_disabled_fws_chassis.       ip's blocking hwrs with BISR fuse errors",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "The description lists five BISR FSM signals stuck during HWRS Phase 3 (mBISR_rstw_phase3_i3c_mng_disable_chassis, mBISR_rstw_ubr18, mBISR_rstw_scrsp2p_c8, mBISR_rstw_phase3_not_disabled_punit_chassis, mBISR_rstw_phase3_not_disabled_fws_chassis), confirming the systemic BISR fuse controller FSM failure pattern. Comments confirm 'DFT had clearly called out ww13a RTL does not have the BISR implementation complete'; rejected as BISR enabled in latest RTL tot.",
+      "important_signals": [
+        "mBISR_rstw_phase3_i3c_mng_disable_chassis",
+        "mBISR_rstw_ubr18",
+        "mBISR_rstw_scrsp2p_c8",
+        "mBISR_rstw_phase3_not_disabled_punit_chassis",
+        "mBISR_rstw_phase3_not_disabled_fws_chassis",
+        "fsm_instance.State[4:0]",
+        "BISR implementation not done in ww13a rtl"
+      ]
+    },
+    {
+      "hsd_id": "14027664554",
+      "list_title": "[COR IOH EMU] [ww 13a]:  scrsp2p_c2,  cmsc1r2,  uxi_uio_disable_chassis,   iommu_disable_chassis,   hiop_disable_chassis,   fblp_disable_chassis,  cxlcm_disable_chassis,  ip's blocking hwrs with BISR fuse errors",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "The description enumerates 15 BISR FSM signal paths stuck during HWRS Phase 4 across UIO, IOMMU, HIOP, FBLP, and CXLCM disable chassis instances (e.g., mBISR_rstw_phase4_uxi_uio_disable_chassis, mBISR_rstw_phase4_iommu_disable_chassis, mBISR_rstw_phase4_cxlcm_disable_chassis). Comments confirm the same systemic BISR RTL incompleteness in ww13a with rejection and force files provided for emulation.",
+      "important_signals": [
+        "mBISR_rstw_scrsp2p_c2",
+        "mBISR_rstw_cmsc1r2",
+        "mBISR_rstw_phase4_uxi_uio_disable_chassis",
+        "mBISR_rstw_phase4_iommu_disable_chassis",
+        "mBISR_rstw_phase4_hiop_disable_chassis",
+        "mBISR_rstw_phase4_fblp_disable_chassis",
+        "mBISR_rstw_phase4_cxlcm_disable_chassis",
+        "fsm_instance.State[4:0]",
+        "BISR implementation not complete in ww13a RTL"
+      ]
+    },
+    {
+      "hsd_id": "14027675621",
+      "list_title": "[COR IOH EMU] [ww 13a]:  Sideband packets from punit to isa_uio [0x2C0] & isa_scf_center0top [ 0x151] & isa_oob [14A] are dropping in router 2167",
+      "probable_domain": "OOB/OOBMSM/S3M",
+      "secondary_domains": [],
+      "confidence_level": "low",
+      "justification": "The title identifies that punit sideband packets destined for isa_oob [0x14A], isa_uio [0x2C0], and isa_scf_center0top [0x151] are being dropped in router 2167. The description contains only an image reference and the comments are limited to requests to share waveform files, with no root cause established yet.",
+      "important_signals": [
+        "sideband packets dropping in router 2167",
+        "isa_uio [0x2C0]",
+        "isa_scf_center0top [0x151]",
+        "isa_oob [14A]",
+        "punit"
+      ]
+    },
+    {
+      "hsd_id": "14027683356",
+      "list_title": "[COR IOH EMU] [ww 13a]:  HWRS sending out imh2cbb hwsync  even though imh2cbb hwsync connected is 0x0",
+      "probable_domain": "Reset/Power Sequencing",
+      "secondary_domains": [],
+      "confidence_level": "high",
+      "justification": "The description shows that HWRS is erroneously driving imh2cbb hwsync requests on D2D even when SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected is 0x0 (CBBs disabled for IOH), with the RTL logic 'imh2cbb_hwsync_req_in_qual = (imh2cbb_hwsync_req_in_sync) | (~hwrs_treg_registers.SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected)' allowing the signal to propagate through PHASE_3_CBB_DIE_READY despite CBB being absent. A comment confirms the fix was delivered via a ww16 HWRS IP uprev.",
+      "important_signals": [
+        "imh2cbb_hwsync_req_in_qual",
+        "SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected = 0x0",
+        "HWRS_DRIVE_PINS_GROUP0_3.PHASE_3_CBB_DIE_READY",
+        "imh2cbb_hwsync_req_out",
+        "CBB_DIE_READY",
+        "cbb ipready tied to 0xf",
+        "ww16 hwrs ip uprev"
+      ]
+    },
+    {
+      "hsd_id": "14027683366",
+      "list_title": "[COR IOH EMU] [ww 13a]:  HWRS sending out imh2cbb hwsync  even though imh2cbb hwsync connected is 0x0",
+      "probable_domain": "Reset/Power Sequencing",
+      "secondary_domains": [],
+      "confidence_level": "high",
+      "justification": "The description is identical to 14027683356, describing the same HWRS logic defect where imh2cbb_hwsync_req_out is driven despite SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected being 0x0. The only comment states 'Duplicate hence rejecting', confirming this is a duplicate of 14027683356 and shares the same Reset/Power Sequencing classification.",
+      "important_signals": [
+        "imh2cbb_hwsync_req_in_qual",
+        "SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected = 0x0",
+        "HWRS_DRIVE_PINS_GROUP0_3.PHASE_3_CBB_DIE_READY",
+        "imh2cbb_hwsync_req_out",
+        "PHASE_3_CBB_DIE_READY",
+        "Duplicate hence rejecting"
+      ]
+    },
+    {
+      "hsd_id": "14027686796",
+      "list_title": "[COR IOH EMU] [ww 13a]:  iommu, cxlcm, fblp, hiop,  scatop, ubr, phase4, dsa, hap, iax, scrs, scrsp2p, cms, fws, punit, d2d, msm aggr  ips blocking hwrs with BISR fuse errors",
+      "probable_domain": "IP Fuse/Configuration",
+      "secondary_domains": ["Reset/Power Sequencing"],
+      "confidence_level": "high",
+      "justification": "The description is a comprehensive consolidation listing over 50 BISR FSM signal paths blocked across center, northcap, and southcap subfloors, covering iommu, cxlcm, fblp, hiop, scatop, ubr, dsa, hap, iax, scrs, scrsp2p, cms, fws, punit, d2d, and msm aggr IP instances — all sharing the mBISR_rstw_* or fBISR_rstw_* pattern with State[4:0] stuck. Comments confirm 'DFT had clearly called out ww13a RTL does not have the BISR implementation complete' with rejection and force files provided.",
+      "important_signals": [
+        "mBISR_rstw_phase4_cxlcm_disable_chassis",
+        "mBISR_rstw_phase4_fblp_disable_chassis",
+        "mBISR_rstw_phase4_hiop_disable_chassis",
+        "mBISR_rstw_phase4_iommu_disable_chassis",
+        "mBISR_rstw_scatop",
+        "mBISR_rstw_ubr",
+        "mBISR_rstw_punit_array_wrapper",
+        "mBISR_rstw_punit_crashlog",
+        "mBISR_rstw_mb_d2d",
+        "mBISR_rstw_phase4_not_disabled_msm_aggr_chassis",
+        "mBISR_rstw_cms_soccenter*",
+        "fBISR_rstw_phase4_*_lcp_ctrl",
+        "fsm_instance.State[4:0]",
+        "BISR implementation not complete in ww13a RTL"
+      ]
+    },
+    {
+      "hsd_id": "14027743431",
+      "list_title": "COR-IOH: Hitting an error for prime-code tracker generation in IOH",
+      "probable_domain": "Emulation Infrastructure/Simics",
+      "secondary_domains": [],
+      "confidence_level": "high",
+      "justification": "The description shows a fw_trace_parser invocation failure with 'No such file or directory @ rb_sysopen - xtmp_trace.out (Errno::ENOENT)', caused by supplying a relative path for --xtrace_file instead of an absolute path. A comment confirms 'error is related to --xtrace_file xtmp_trace.out, xtmp_trace.out is not found in the directory that command was run in' and the fix was to supply the absolute path; a subsequent comment confirms 'Joe Brooks was able to generate a FW Trace log using the parser' — no DUT RTL issue was involved.",
+      "important_signals": [
+        "fw_trace_parser",
+        "No such file or directory @ rb_sysopen - xtmp_trace.out",
+        "Errno::ENOENT",
+        "PRIMECODE_MODEL_ROOT",
+        "primecode-2026ww16-5234",
+        "--xtrace_file xtmp_trace.out relative path error",
+        "Joe Brooks was able to generate a FW Trace log"
+      ]
+    }
+  ],
+  "domain_clusters": [
+    {
+      "domain": "IP Fuse/Configuration",
+      "ticket_count": 6,
+      "ticket_ids": [
+        "14027339278",
+        "14027643689",
+        "14027663847",
+        "14027663856",
+        "14027664554",
+        "14027686796"
+      ],
+      "justification": "All six tickets share a common root cause: fuse/strap configuration failures in the Coral Rapids IOH emulation environment. Tickets 14027643689, 14027663847, 14027663856, 14027664554, and 14027686796 are a cluster of BISR fuse controller FSM failures (mBISR_rstw_* and fBISR_rstw_* signals stuck in error state) stemming from the ww13a RTL not having the BISR implementation complete — all were rejected by DFT with force files provided for emulation. Ticket 14027339278 is a strap tieoff automation error where HWRS, S3M, and DFX Aggregator port IDs are tied to zero due to missing connectivity entries in manual_connectivity.py.",
+      "ambiguous_tickets": ["14027482819"]
+    },
+    {
+      "domain": "Reset/Power Sequencing",
+      "ticket_count": 3,
+      "ticket_ids": [
+        "14027520901",
+        "14027683356",
+        "14027683366"
+      ],
+      "justification": "These three tickets involve HWRS reset orchestration defects. Ticket 14027520901 is a mis-wired reset domain (S3M router connected to soc_early_infra/S0 crux instead of s5_crux), blocking S3M transactions during reset. Tickets 14027683356 and 14027683366 (duplicate) identify an HWRS RTL logic bug where imh2cbb hwsync requests are driven on D2D even when CBBs are absent (SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected = 0x0), incorrectly asserting PHASE_3_CBB_DIE_READY.",
+      "ambiguous_tickets": ["14027339278"]
+    },
+    {
+      "domain": "OOB/OOBMSM/S3M",
+      "ticket_count": 3,
+      "ticket_ids": [
+        "14027482819",
+        "14027492988",
+        "14027675621"
+      ],
+      "justification": "All three tickets involve S3M/sideband packet loss in the IOH fabric routers. Ticket 14027482819 tracks S3M sideband packets dropped on the S3m->fsa->2585 router path to the fuse controller, with investigation pointing to port_id tieoff misconfiguration. Ticket 14027492988 reports GPIO S5 sideband completions returning without data to the fuse controller. Ticket 14027675621 identifies punit sideband packets dropping in router 2167 for multiple destinations including isa_oob [0x14A].",
+      "ambiguous_tickets": ["14027675621"]
+    },
+    {
+      "domain": "Emulation Infrastructure/Simics",
+      "ticket_count": 1,
+      "ticket_ids": [
+        "14027743431"
+      ],
+      "justification": "Ticket 14027743431 is a pure emulation tooling usage error: the fw_trace_parser (primecode) was invoked with a relative path for --xtrace_file, causing a file-not-found error at runtime. The fix was to supply the absolute path, and a subsequent comment confirms successful trace generation. No RTL or hardware defect is involved.",
+      "ambiguous_tickets": []
+    }
+  ],
+  "summary": {
+    "total_tickets_analyzed": 13,
+    "platform": "Coral Rapids IOH Die",
+    "release_tag": "corioh-a0",
+    "total_domain_clusters": 4,
+    "domain_distribution_by_ticket_count": {
+      "IP Fuse/Configuration": 6,
+      "Reset/Power Sequencing": 3,
+      "OOB/OOBMSM/S3M": 3,
+      "Emulation Infrastructure/Simics": 1
+    },
+    "key_findings": [
+      "DOMINANT CLUSTER — IP Fuse/Configuration (6/13 tickets): The most systemic issue is the incomplete BISR (Built-In Self Repair) fuse controller RTL in the ww13a model. Tickets 14027643689, 14027663847, 14027663856, 14027664554, and 14027686796 are a direct consequence of this single RTL gap — all were rejected by DFT with force files provided for emulation to proceed. This is a hw.arch/hw.bug concern: BISR fuse IP controller FSMs (mBISR_rstw_* and fBISR_rstw_*) across punit, d2d, msm_aggr, iommu, cxlcm, fblp, hiop, scatop, ubr, scrs, scrsp2p, cms, fws, dsa, hap, iax, and LCP_ctrl are all blocking HWRS phases 3 and 4.",
+      "SYSTEMIC ROOT CAUSE — Port ID / Strap Tieoff Misconfiguration: Ticket 14027339278 (port IDs tied to zero for HWRS, S3M, DFX Aggregator) directly caused S3M sideband packet drops (14027482819, potentially 14027492988) as the port_id tieoff errors prevented correct routing through the fabric. The fix in manual_connectivity.py and config_utils.py resolved the strap automation defects for subsequent model builds.",
+      "HWRS LOGIC BUG — Reset/Power Sequencing (hw.bug candidate): Ticket 14027683356 exposes an RTL logic error in the HWRS IP where imh2cbb_hwsync_req_out is asserted on D2D during Phase 3 (PHASE_3_CBB_DIE_READY) even when SKU_FEATURE_DWORD1.imh2cbb_hwsync_connected = 0x0 (CBBs absent in IOH SKU). This is a hw.bug — the HWRS RTL condition does not correctly suppress cross-die sync signals for disabled interfaces. Fixed via ww16 HWRS IP uprev.",
+      "Reset Domain Misconfiguration: Ticket 14027520901 identified the S3M fabric router being wired to the wrong reset domain (soc_early_infra/S0 instead of s5_crux), causing S3M sideband transactions to stall. Root cause was a commented-out line in the config automation (config_utils.py). This is a configuration/connectivity correctness issue affecting reset bringup.",
+      "Low-confidence open issue: Ticket 14027675621 (punit sideband drops in router 2167 for isa_oob, isa_uio, isa_scf_center0top) remains unresolved with no root cause established as of the ticket status. This may be a follow-on from the strap tieoff fixes or an independent routing table misconfiguration.",
+      "Tooling noise: Ticket 14027743431 is a false positive — a primecode fw_trace_parser invocation error due to a relative path mistake, with no hardware or RTL impact. Successfully resolved by using the absolute path to xtmp_trace.out."
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-# HSDES Domain Track
+# hsdes-domain-tracker
 
 **Automated triage and domain classification of Intel HSD-ES sighting tickets.**
 
@@ -7,8 +7,6 @@ This toolchain fetches sighting tickets from HSDES saved queries, extracts raw t
 ---
 
 ## Workflow Overview
-
-> See `HSD_DomainTrack.pptx` for the full visual workflow presentation.
 
 ```
 [HSDES Saved Query]
@@ -47,8 +45,8 @@ This toolchain fetches sighting tickets from HSDES saved queries, extracts raw t
 ### 1. Clone the repository
 
 ```bash
-git clone <your-private-repo-url>
-cd HSDES_DomainTrack
+git clone https://github.com/<your-username>/hsdes-domain-tracker.git
+cd hsdes-domain-tracker
 ```
 
 ### 2. Create and activate a virtual environment
@@ -71,7 +69,7 @@ pip install -r requirements.txt
 ### Authentication (required before every session)
 
 ```bash
-kinit amadaan@GAR.CORP.INTEL.COM
+kinit <your-idsid>@GAR.CORP.INTEL.COM
 klist   # verify ticket is present
 ```
 
@@ -95,9 +93,10 @@ python fetch_hsd_ids.py 14020705391
 |---|---|
 | `hsd_list.txt` | All ticket IDs + titles (tab-separated) |
 | `mcp_hsd_list.txt` | Tickets matching MCP / XOS / CorePMA |
+| `cbb_hsd_list.txt` | Tickets matching CBB |
+| `ioh_hsd_list.txt` | Tickets matching IOH |
 | `imh1_hsd_list.txt` | Tickets matching IMH1 / iMH1 / bare IMH |
-| `imh2_hsd_list.txt` | Tickets matching IMH2 / iMH2 / MIO |
-| `other_hsd_list.txt` | VTD tickets and all unclassified tickets |
+| `other_hsd_list.txt` | VTD tickets, enhancements, and unclassified |
 
 Each ticket appears in exactly one list (mutually exclusive, priority-ordered).
 
@@ -169,25 +168,22 @@ python generate_dashboard.py ./triage_classification_mcp.json
 ## Repository Structure
 
 ```
-HSDES_DomainTrack/
+hsdes-domain-tracker/
 ├── fetch_hsd_ids.py          # Step 1 – Fetch IDs from HSDES saved query
 ├── hsdes_api_extractor.py    # Step 2 – Extract raw ticket data via REST API
 ├── skills.md                 # Step 3 – AI triage classification skill prompt
 ├── generate_dashboard.py     # Step 4 – Generate HTML dashboard
 ├── requirements.txt          # Python dependencies
-├── HSD_DomainTrack.pptx      # Workflow presentation
-└── Sample_Result/            # Example outputs (committed for reference)
-    ├── latest_mcp_result/
-    │   ├── mcp_hsd_list.txt
-    │   ├── raw_hsdes_data_mcp.json
-    │   ├── triage_classification_mcp.json
-    │   └── triage_dashboard_mcp.html
-    └── queryId14020705391/
-        ├── hsd_list.txt
-        ├── mcp_hsd_list.txt
-        ├── imh1_hsd_list.txt
-        ├── imh2_hsd_list.txt
-        └── other_hsd_list.txt
+└── SampleResult_<query_id>/  # Example outputs (committed for reference)
+    ├── hsd_list.txt
+    ├── mcp_hsd_list.txt
+    ├── cbb_hsd_list.txt
+    ├── ioh_hsd_list.txt
+    ├── imh1_hsd_list.txt
+    ├── other_hsd_list.txt
+    ├── raw_hsdes_data_output.json
+    ├── triage_classification.json
+    └── triage_dashboard.html
 ```
 
 ---
