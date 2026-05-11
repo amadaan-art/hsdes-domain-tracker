@@ -4,6 +4,8 @@
 
 This toolchain fetches sighting tickets from HSDES saved queries, extracts raw ticket data via the HSDES REST API, classifies each ticket into a root problem domain using an AI-driven skill prompt, and generates an interactive HTML dashboard for review.
 
+All outputs for a given query are stored under a directory named after the query ID (`<query_id>/`).
+
 ---
 
 ## Workflow Overview
@@ -12,20 +14,23 @@ This toolchain fetches sighting tickets from HSDES saved queries, extracts raw t
 [HSDES Saved Query]
         │
         ▼  Step 1 – fetch_hsd_ids.py
-[hsd_list.txt]  ──platform split──►  [mcp_hsd_list.txt]
-                                     [imh1_hsd_list.txt]
-                                     [imh2_hsd_list.txt]
-                                     [other_hsd_list.txt]
+<query_id>/hsd_list.txt  ──platform split──►  <query_id>/mcp_hsd_list.txt
+                                               <query_id>/cbb_hsd_list.txt
+                                               <query_id>/ioh_hsd_list.txt
+                                               <query_id>/imh1_hsd_list.txt
+                                               <query_id>/other_hsd_list.txt
         │
-        ▼  Step 2 – hsdes_api_extractor.py
-[raw_hsdes_data_<tag>.json]
+        ▼  Step 2 – hsdes_api_extractor.py  (runs per non-empty platform list)
+<query_id>/raw_hsdes_data_<tag>.json
         │
-        ▼  Step 3 – GitHub Copilot + skills.md (AI triage skill)
-[triage_classification_<tag>.json]
+        ▼  Step 3 – GitHub Copilot + skills.md  (manual, per tag — skippable)
+<query_id>/triage_classification_<tag>.json
         │
         ▼  Step 4 – generate_dashboard.py
-[triage_dashboard_<tag>.html]
+<query_id>/triage_dashboard_<tag>.html
 ```
+
+The full pipeline is orchestrated by `run_pipeline.py`.
 
 ---
 
@@ -35,8 +40,7 @@ This toolchain fetches sighting tickets from HSDES saved queries, extracts raw t
 |---|---|
 | Intel Kerberos access | Must have a valid `@GAR.CORP.INTEL.COM` principal |
 | Python 3.8+ | Available on PATH |
-| `curl` with SPNEGO/Kerberos | Used by the API extractor for authenticated requests |
-| GitHub Copilot (MCP/Agent mode) | Required for Step 3 – AI triage classification |
+| GitHub Copilot (Agent mode) | Required for Step 3 – AI triage classification |
 
 ---
 
@@ -69,11 +73,57 @@ pip install -r requirements.txt
 ### Authentication (required before every session)
 
 ```bash
-kinit <your-idsid>@GAR.CORP.INTEL.COM
+kinit <your-Alias-id>@GAR.CORP.INTEL.COM
 klist   # verify ticket is present
 ```
 
 ---
+
+## Recommended: Run the full pipeline
+
+```bash
+python run_pipeline.py <query_id>
+```
+
+**Example:**
+
+```bash
+python run_pipeline.py 14020705391
+```
+
+This runs all four steps in order. Step 3 pauses at each platform tag and prompts:
+
+```
+  Tag 'ioh' — 12 ticket(s)  [raw_hsdes_data_ioh.json]
+  Process tag 'ioh' with Copilot? [y]es / [s]kip / [q]uit :
+```
+
+- **y / Enter** — proceeds with the Copilot classification prompt
+- **s** — skips this tag and continues to the next
+- **q** — exits the pipeline cleanly
+
+**Skip flags** (for resuming a partial run):
+
+```bash
+python run_pipeline.py <query_id> --skip-step1            # platform lists already fetched
+python run_pipeline.py <query_id> --skip-step1 --skip-step2        # raw JSON already extracted
+python run_pipeline.py <query_id> --skip-step1 --skip-step2 --skip-step3  # step 4 only
+```
+
+**Additional options:**
+
+| Flag | Default | Description |
+|---|---|---|
+| `--workers N` | 3 | Parallel API workers for extraction |
+| `--delay N` | 0.5 | Seconds between API calls per article |
+| `--poll-interval N` | 15 | Seconds between Copilot output polls |
+| `--poll-timeout-minutes N` | 60 | Max wait per tag in Step 3 |
+
+All output is written to `<query_id>/` and logged to `<query_id>/pipeline.log`.
+
+---
+
+## Individual Steps
 
 ### Step 1 — Fetch HSD IDs from a saved query
 
@@ -81,24 +131,20 @@ klist   # verify ticket is present
 python fetch_hsd_ids.py <query_id>
 ```
 
-**Example:**
+Fetches `id`, `title`, and `type` for every ticket in the saved query, classifies each by platform keyword, and writes the results under `<query_id>/`.
 
-```bash
-python fetch_hsd_ids.py 14020705391
-```
+**Classification priority (first match wins):**
 
-**Outputs** (written to a `queryId<query_id>/` directory):
+| Priority | File | Criteria |
+|---|---|---|
+| 1 (highest) | `other_hsd_list.txt` | Title contains `VTD` or `DMR`, or `type == enhancement` |
+| 2 | `mcp_hsd_list.txt` | Title contains `MCP`, `XOS`, or `CorePMA` |
+| 3 | `cbb_hsd_list.txt` | Title contains `CBB` |
+| 4 | `ioh_hsd_list.txt` | Title contains `IOH` |
+| 5 | `imh1_hsd_list.txt` | Title contains `IMH1`, `iMH1`, or bare `IMH` |
+| 6 (catch-all) | `other_hsd_list.txt` | No platform keyword matched |
 
-| File | Contents |
-|---|---|
-| `hsd_list.txt` | All ticket IDs + titles (tab-separated) |
-| `mcp_hsd_list.txt` | Tickets matching MCP / XOS / CorePMA |
-| `cbb_hsd_list.txt` | Tickets matching CBB |
-| `ioh_hsd_list.txt` | Tickets matching IOH |
-| `imh1_hsd_list.txt` | Tickets matching IMH1 / iMH1 / bare IMH |
-| `other_hsd_list.txt` | VTD tickets, enhancements, and unclassified |
-
-Each ticket appears in exactly one list (mutually exclusive, priority-ordered).
+Each ticket appears in exactly one file.
 
 ---
 
@@ -106,59 +152,46 @@ Each ticket appears in exactly one list (mutually exclusive, priority-ordered).
 
 ```bash
 python hsdes_api_extractor.py \
-  --ids-file <path/to/mcp_hsd_list.txt> \
-  --tag <tag> \
-  --workers 3 \
-  --delay 0.5
-```
-
-**Example:**
-
-```bash
-python hsdes_api_extractor.py \
-  --ids-file /nfs/site/disks/pse_oks_002/amadaan/HSDES_DomainTrack/queryId14020705391/mcp_hsd_list.txt \
+  --ids-file <query_id>/mcp_hsd_list.txt \
   --tag mcp \
+  --output <query_id>/raw_hsdes_data_mcp.json \
   --workers 3 \
   --delay 0.5
 ```
 
-**Output:** `raw_hsdes_data_<tag>.json` — contains all ticket fields including `description`, `comments`, and `sighting_forum_notes`.
+**Output:** `<query_id>/raw_hsdes_data_<tag>.json` — all ticket fields including `description`, `comments`, and `sighting_forum_notes`.
+
+When using `run_pipeline.py`, this runs automatically for every non-empty platform list.
 
 ---
 
 ### Step 3 — AI Triage Classification (GitHub Copilot)
 
-Open GitHub Copilot in **agent / MCP mode** and run:
+Open GitHub Copilot in **Agent mode** and run the prompt printed by the pipeline:
 
 ```
-Read SKILL.md and apply it to <absolute_path>/raw_hsdes_data_<tag>.json
+Read skills.md and apply it to <query_id>/raw_hsdes_data_<tag>.json
 ```
 
-**Example prompt:**
+Copilot classifies each ticket using only `description`, `comments`, and `sighting_forum_notes` — never pre-labeled metadata fields.
 
-```
-Read SKILL.md and apply it to /nfs/site/disks/pse_oks_002/amadaan/HSDES_DomainTrack/raw_hsdes_data_mcp.json
-```
+**Output:** `<query_id>/triage_classification_<tag>.json`
 
-Copilot reads `skills.md` for the triage instructions and classifies each ticket by its `description`, `comments`, and `sighting_forum_notes` fields — never by pre-labeled metadata fields.
+The pipeline polls for this file automatically. It accepts the file regardless of whether Copilot writes it as `triage_classification.json` or `triage_classification_<tag>.json`, in the query dir or the workspace root — whichever appears first.
 
-**Output:** `triage_classification_<tag>.json` — per-ticket domain assignments, domain clusters, and summary statistics.
+Tags with an existing `triage_classification_<tag>.json` are skipped automatically on re-runs.
 
 ---
 
 ### Step 4 — Generate Interactive HTML Dashboard
 
 ```bash
-python generate_dashboard.py <path/to/triage_classification_<tag>.json>
+python generate_dashboard.py \
+  <query_id>/triage_classification_<tag>.json \
+  <query_id>/triage_dashboard_<tag>.html
 ```
 
-**Example:**
-
-```bash
-python generate_dashboard.py ./triage_classification_mcp.json
-```
-
-**Output:** `triage_dashboard_<tag>.html` — self-contained interactive dashboard with:
+**Output:** `<query_id>/triage_dashboard_<tag>.html` — self-contained interactive dashboard with:
 - Domain distribution charts
 - Per-ticket searchable table (domain, confidence, key signals)
 - Domain cluster view
@@ -169,21 +202,22 @@ python generate_dashboard.py ./triage_classification_mcp.json
 
 ```
 hsdes-domain-tracker/
-├── fetch_hsd_ids.py          # Step 1 – Fetch IDs from HSDES saved query
+├── run_pipeline.py           # Full pipeline orchestrator (recommended entry point)
+├── fetch_hsd_ids.py          # Step 1 – Fetch IDs + platform split from HSDES query
 ├── hsdes_api_extractor.py    # Step 2 – Extract raw ticket data via REST API
 ├── skills.md                 # Step 3 – AI triage classification skill prompt
 ├── generate_dashboard.py     # Step 4 – Generate HTML dashboard
-├── requirements.txt          # Python dependencies
-└── SampleResult_<query_id>/  # Example outputs (committed for reference)
-    ├── hsd_list.txt
-    ├── mcp_hsd_list.txt
-    ├── cbb_hsd_list.txt
-    ├── ioh_hsd_list.txt
-    ├── imh1_hsd_list.txt
-    ├── other_hsd_list.txt
-    ├── raw_hsdes_data_output.json
-    ├── triage_classification.json
-    └── triage_dashboard.html
+└── Sample_Result/            # Example outputs (committed for reference)
+    └── <query_id>/
+        ├── hsd_list.txt
+        ├── mcp_hsd_list.txt
+        ├── cbb_hsd_list.txt
+        ├── ioh_hsd_list.txt
+        ├── imh1_hsd_list.txt
+        ├── other_hsd_list.txt
+        ├── raw_hsdes_data_<tag>.json
+        ├── triage_classification_<tag>.json
+        └── triage_dashboard_<tag>.html
 ```
 
 ---
@@ -216,17 +250,19 @@ The skill in `skills.md` maps tickets to the following root domains:
 
 | File | Generated by | Description |
 |---|---|---|
-| `hsd_list.txt` | `fetch_hsd_ids.py` | All HSD IDs + titles |
-| `mcp_hsd_list.txt` | `fetch_hsd_ids.py` | MCP-platform ticket IDs |
-| `raw_hsdes_data_<tag>.json` | `hsdes_api_extractor.py` | Raw HSDES ticket fields |
-| `triage_classification_<tag>.json` | Copilot + `skills.md` | AI triage results |
-| `triage_dashboard_<tag>.html` | `generate_dashboard.py` | Interactive HTML dashboard |
+| `<query_id>/hsd_list.txt` | `fetch_hsd_ids.py` | All HSD IDs + titles |
+| `<query_id>/*_hsd_list.txt` | `fetch_hsd_ids.py` | Per-platform ticket ID lists |
+| `<query_id>/raw_hsdes_data_<tag>.json` | `hsdes_api_extractor.py` | Raw HSDES ticket fields |
+| `<query_id>/triage_classification_<tag>.json` | Copilot + `skills.md` | AI triage results |
+| `<query_id>/triage_dashboard_<tag>.html` | `generate_dashboard.py` | Interactive HTML dashboard |
+| `<query_id>/pipeline.log` | `run_pipeline.py` | Full run log with timestamps |
 
 ---
 
 ## Notes
 
 - Kerberos tickets expire — re-run `kinit` at the start of each session.
-- Runtime output files (JSON, HTML, txt) at repo root are excluded by `.gitignore`. Only `Sample_Result/` outputs are committed.
-- The `--workers` and `--delay` flags in Step 2 control concurrency and rate-limiting against the HSDES API.
+- All runtime outputs are stored under `<query_id>/` — never at the project root.
+- The `--workers` and `--delay` flags control concurrency and rate-limiting against the HSDES API.
 - Classification in Step 3 is based **exclusively** on `description`, `comments`, and `sighting_forum_notes` — metadata label fields (`domain`, `component`, `tag`) are intentionally ignored per the skill rules.
+- Enhancement-type tickets and DMR/VTD titles are routed to `other_hsd_list.txt` and excluded from platform-specific triage by default. Use `--skip-step3` or answer `s` at the Step 3 prompt to skip their classification entirely.

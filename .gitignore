@@ -38,4 +38,7 @@ Thumbs.db
 /mcp_hsd_list.txt
 /other_hsd_list.txt
 
+# Query result directories (named after numeric query IDs)
+[0-9]*/
+
 # SampleResult_*/ directories are committed intentionally — patterns above do not apply inside them

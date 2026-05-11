@@ -8,7 +8,7 @@ extraction, dramatically reducing wrong-ticket hallucination.
 
 Additionally generates platform-specific lists by classifying each HSD
 ticket based on keywords found in its title or type (mutually exclusive, priority order):
-  1. other_hsd_list.txt : titles containing VTD OR type == 'enhancement' (highest priority)
+  1. other_hsd_list.txt : titles containing VTD OR DMR OR type == 'enhancement' (highest priority)
   2. mcp_hsd_list.txt   : titles containing MCP, XOS, or CorePMA
   3. cbb_hsd_list.txt   : titles containing CBB
   4. ioh_hsd_list.txt   : titles containing IOH
@@ -38,14 +38,14 @@ def _classify_by_title(title, hsd_type=''):
     Return the single platform category for the given HSD title and type.
 
     Priority (first match wins):
-      1. 'other' – title contains VTD OR type is 'enhancement' (highest priority)
+      1. 'other' – title contains VTD OR DMR OR type is 'enhancement' (highest priority)
       2. 'mcp'   – title contains MCP, XOS, or CorePMA
       3. 'cbb'   – title contains CBB
       4. 'ioh'   – title contains IOH
       5. 'imh1'  – title contains IMH1/iMH1 OR bare IMH/iMH (not followed by a digit)
       6. None    – no platform keyword found
     """
-    if re.search(r'\bvtd\b', title, re.IGNORECASE) or str(hsd_type).strip().lower() == 'enhancement':
+    if re.search(r'\bvtd\b', title, re.IGNORECASE) or re.search(r'\bdmr\b', title, re.IGNORECASE) or str(hsd_type).strip().lower() == 'enhancement':
         return 'other'
     if re.search(r'\bmcp\b', title, re.IGNORECASE) or re.search(r'\bxos\b', title, re.IGNORECASE) or re.search(r'\bcorepma\b', title, re.IGNORECASE):
         return 'mcp'
@@ -82,7 +82,7 @@ def fetch_hsd_and_title_from_query(query_id):
       - <query_id>/other_hsd_list.txt    (VTD, enhancement type, or no keyword matched)
 
     A ticket appears in exactly one file based on priority:
-    VTD/enhancement > MCP > CBB > IOH > IMH1 > other.  Only entries present
+    VTD/DMR/enhancement > MCP > CBB > IOH > IMH1 > other.  Only entries present
     in the latest query are kept (files are fully overwritten on each run).
     """
     out_dir = str(query_id)
